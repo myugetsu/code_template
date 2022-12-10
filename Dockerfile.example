@@ -1,0 +1,35 @@
+FROM python:3.7.3-alpine3.8 as base
+
+RUN apk update && apk add libressl-dev libffi-dev gcc musl-dev
+RUN apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev
+
+WORKDIR /app
+COPY requirements.txt ./
+RUN pip install -r requirements.txt
+RUN pip install gunicorn pymysql
+
+# static folders
+COPY app app
+COPY static static
+
+COPY {project-name}.py config.py .env boot.sh ./
+RUN chmod +x boot.sh
+
+ENV FLASK_APP mamagas_outlet.py
+
+EXPOSE 5000
+FROM base as mama_gas_outlets
+CMD ["./boot.sh"]
+
+# unittests
+FROM base as unittest
+COPY requirements.unittest.txt ./
+COPY tests tests
+COPY scripts/unittest.start.sh ./
+
+# create user to run the tests
+RUN adduser -HDs /bin/sh admin
+RUN chown -R admin:admin .
+RUN chmod +x ./unittest.start.sh
+
+CMD ["./unittest.start.sh"]

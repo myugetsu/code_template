@@ -1,0 +1,44 @@
+version: "2.1"
+
+services:
+  dbserver:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_DATABASE: "db_name"
+      # So you don't have to use root, but you can if you like
+      MYSQL_USER: "db_user"
+      # You can use whatever password you like
+      MYSQL_PASSWORD: "db_pass"
+    # ports:
+    #   # <Port exposed> : < MySQL Port running inside container>
+    #   - "3306:3306"
+    # expose:
+    #   # Opens port 3306 on the container
+    #   - "3306"
+  {project_name}:
+    image: {project_name}
+    build: .
+    ports:
+      - 8000:5000
+    environment:
+      - SECRET_KEY=b'i\x03\xa0E\x88j\xd3\xbc\xd7\xc8\xda\xd0\x9f\xbd\x16\x80\x96<\x89\xc5dv\xcc|'
+      - FLASK_ENV=development
+      - FLASK_CONFIG=default
+      - DATABASE_URL=mysql+pymysql://username:password@localhost/db_name
+    links:
+      - dbserver
+  {unittest}: #for running tests
+    build:
+      context: .
+      target: unittest
+    ports:
+      - 8008:5000
+    links:
+      - mama_gas_outlets
+    networks:
+      - net
+networks:
+  net:
+    driver: bridge

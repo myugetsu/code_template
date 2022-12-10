@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  {project_name}:
+    image: {project_name}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
