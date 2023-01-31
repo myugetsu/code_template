@@ -16,6 +16,11 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env: 
+      FLASK_APP: flask_new.py
+      FLASK_DEBUG: testing
+      SECRET_KEY: secret_key
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL  }}
 
     steps:
     - uses: actions/checkout@v3
@@ -28,11 +33,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install tox
-    - name: export env variables
-      run: | 
-        export FLASK_APP=flask_new.py
-        export FLASK_ENV=testing
-        export SECRET_KEY=secret_key
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
@@ -42,3 +42,10 @@ jobs:
     - name: Test with tox
       run: |
         tox
+    - name: Slack Notification
+      uses: slackapi/slack-github-action@v1.23.0
+      with: 
+        status: ${{ job.status }}
+        steps: ${{ toJson(steps) }}
+        channel: #cicd
+      if: always()
