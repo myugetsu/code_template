@@ -28,7 +28,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install tox
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: export env variables
       run: | 
         export FLASK_APP=flask_new.py
