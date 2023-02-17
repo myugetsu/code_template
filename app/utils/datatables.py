@@ -33,7 +33,8 @@ class Datatable(object):
 
     def getFilteredRecords(self, filter_args, displayable_columns, limit):
         # you can use the like parameter from filter_args i.e User.phone_number.like('0' + "%")
-        query = self.model.query.filter(filter_args).paginate(1, int(limit), False)
+        query = self.model.query.filter(
+            filter_args).paginate(1, int(limit), False)
 
         return self.results(query, displayable_columns)
 
