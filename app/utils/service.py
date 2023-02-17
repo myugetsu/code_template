@@ -12,8 +12,8 @@ except ImportError:
 
 # Local imports...
 
-TODOS_URL = urljoin(BASE_URL, 'todos')
-USERS_URL = urljoin(BASE_URL, 'users')
+TODOS_URL = urljoin(BASE_URL, "todos")
+USERS_URL = urljoin(BASE_URL, "users")
 
 
 def get_todos():
@@ -30,7 +30,7 @@ def get_uncompleted_todos():
         return []
     else:
         todos = response.json()
-        return [todo for todo in todos if todo.get('completed') == False]
+        return [todo for todo in todos if todo.get("completed") == False]
 
 
 def get_users():
@@ -42,7 +42,7 @@ def get_users():
 
 
 def get_user(id):
-    USER_URL = urljoin(BASE_URL, 'users/' + str(id))
+    USER_URL = urljoin(BASE_URL, "users/" + str(id))
     response = requests.get(USER_URL)
 
     if response.ok:

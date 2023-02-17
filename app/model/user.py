@@ -19,7 +19,7 @@ class User(UserMixin, db.Model):
     token_expiration = db.Column(db.DateTime)
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)
+        return "<User {}>".format(self.username)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -33,42 +33,44 @@ class User(UserMixin, db.Model):
 
     def get_reset_password_token(self, expires_in=600):
         return jwt.encode(
-            {'reset_password': self.id, 'exp': time() + expires_in},
-            current_app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+            {"reset_password": self.id, "exp": time() + expires_in},
+            current_app.config["SECRET_KEY"],
+            algorithm="HS256",
+        ).decode("utf-8")
 
     @staticmethod
     def verify_reset_password_token(token):
         try:
-            id = jwt.decode(token, current_app.config['SECRET_KEY'],
-                            algorithms=['HS256'])['reset_password']
+            id = jwt.decode(
+                token, current_app.config["SECRET_KEY"], algorithms=["HS256"]
+            )["reset_password"]
         except:
             return
         return User.query.get(id)
 
     def to_dict(self, include_email=False):
         data = {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email,
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
             # 'last_seen': self.last_seen.isoformat() + 'Z',
-            '_links': {
-                'self': url_for('api.get_user', id=self.id)
-            }
+            "_links": {"self": url_for("api.get_user", id=self.id)},
         }
         if include_email:
-            data['email'] = self.email
+            data["email"] = self.email
         return data
 
     def from_dict(self, data, new_user=False):
-        for field in ['username', 'email', 'about_me']:
+        for field in ["username", "email", "about_me"]:
             if field in data:
                 setattr(self, field, data[field])
-        if new_user and 'password' in data:
-            self.set_password(data['password'])
+        if new_user and "password" in data:
+            self.set_password(data["password"])
 
     def check_user_exist(self, data):
-        user = self.query.filter((User.username == data['username']) | (
-            User.email == data['email'])).first()
+        user = self.query.filter(
+            (User.username == data["username"]) | (User.email == data["email"])
+        ).first()
         if user:
             return True
         else:
