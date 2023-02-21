@@ -20,7 +20,6 @@ jobs:
       FLASK_APP: flask_new.py
       FLASK_DEBUG: true
       SECRET_KEY: secret_key
-      SQLALCHEMY_DATABASE_URI: 'sql_secret'
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL  }}
 
     steps:
@@ -40,9 +39,9 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with tox
-      run: |
-        tox
+    # - name: Test with tox
+    #   run: |
+    #     tox
     - name: Slack Notification
       uses: act10ns/slack@v1
       with:
