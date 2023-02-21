@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FLASK_APP: flask_new.py
-      FLASK_DEBUG: testing
+      FLASK_DEBUG: true
       SECRET_KEY: secret_key
       SQLALCHEMY_DATABASE_URI: 'sql_secret'
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL  }}
