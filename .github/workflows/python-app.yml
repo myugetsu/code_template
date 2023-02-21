@@ -16,7 +16,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    env: 
+    env:
       FLASK_APP: flask_new.py
       FLASK_DEBUG: testing
       SECRET_KEY: secret_key
@@ -44,7 +44,7 @@ jobs:
         tox
     - name: Slack Notification
       uses: act10ns/slack@v1
-      with: 
+      with:
         status: ${{ job.status }}
         steps: ${{ toJson(steps) }}
         channel: #cicd

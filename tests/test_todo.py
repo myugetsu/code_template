@@ -8,22 +8,18 @@ from app.utils.constants import SKIP_TAGS
 
 
 class TestIntegration(FlackTestCase):
-
-    @skipIf('real' in SKIP_TAGS, 'Skipping tests that hit the real API server.')
+    @skipIf("real" in SKIP_TAGS, "Skipping tests that hit the real API server.")
     def test_integration_contract(self):
         # Call the service to hit the actual API.
         actual = get_todos()
         actual_keys = actual.json().pop().keys()
 
         # Call the service to hit the mocked API.
-        with patch('app.utils.service.requests.get') as mock_get:
+        with patch("app.utils.service.requests.get") as mock_get:
             mock_get.return_value.ok = True
-            mock_get.return_value.json.return_value = [{
-                'userId': 1,
-                'id': 1,
-                'title': 'Make the bed',
-                'completed': False
-            }]
+            mock_get.return_value.json.return_value = [
+                {"userId": 1, "id": 1, "title": "Make the bed", "completed": False}
+            ]
 
             mocked = get_todos()
             mocked_keys = mocked.json().pop().keys()
@@ -36,7 +32,7 @@ class TestIntegration(FlackTestCase):
 class TestToDo(FlackTestCase):
     @classmethod
     def setUpClass(cls):
-        cls.mock_get_patcher = patch('app.utils.service.requests.get')
+        cls.mock_get_patcher = patch("app.utils.service.requests.get")
         cls.mock_get = cls.mock_get_patcher.start()
 
     @classmethod
@@ -47,12 +43,8 @@ class TestToDo(FlackTestCase):
         # Configure the mock to return a response with an OK status code.
         self.mock_get.return_value.ok = True
 
-        todos = [{
-            'userId': 1,
-            'id': 1,
-            'title': 'Make the bed',
-            'completed': False
-        }]
+        todos = [{"userId": 1, "id": 1,
+                  "title": "Make the bed", "completed": False}]
 
         self.mock_get.return_value = Mock()
         self.mock_get.return_value.json.return_value = todos
@@ -77,7 +69,7 @@ class TestToDo(FlackTestCase):
 class TestUncompletedTodos(FlackTestCase):
     @classmethod
     def setUpClass(cls):
-        cls.mock_get_todos_patcher = patch('app.utils.service.get_todos')
+        cls.mock_get_todos_patcher = patch("app.utils.service.get_todos")
         cls.mock_get_todos = cls.mock_get_todos_patcher.start()
 
     @classmethod
@@ -85,18 +77,10 @@ class TestUncompletedTodos(FlackTestCase):
         cls.mock_get_todos_patcher.stop()
 
     def test_getting_uncompleted_todos_when_todos_is_not_none(self):
-        todo1 = {
-            'userId': 1,
-            'id': 1,
-            'title': 'Make the bed',
-            'completed': False
-        }
-        todo2 = {
-            'userId': 2,
-            'id': 2,
-            'title': 'Walk the dog',
-            'completed': True
-        }
+        todo1 = {"userId": 1, "id": 1,
+                 "title": "Make the bed", "completed": False}
+        todo2 = {"userId": 2, "id": 2,
+                 "title": "Walk the dog", "completed": True}
 
         # Configure mock to return a response with a JSON-serialized list of todos.
         self.mock_get_todos.return_value = Mock()

@@ -12,9 +12,6 @@ from flask_babel import Babel
 from flask import Blueprint
 
 
-
-
-
 db = SQLAlchemy()
 migrate = Migrate()
 login = LoginManager()

@@ -25,9 +25,4 @@ $ flask run
 
 most of the api logic is done within the app file, while the tests are created on tests folder which has a helper file which can be used
 for mocking api calls
-included also has an example files which can be used to create a dockerfile, bitbucket-piplelines, 
-
-
-
-
-
+included also has an example files which can be used to create a dockerfile, bitbucket-piplelines,

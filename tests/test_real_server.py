@@ -8,16 +8,17 @@ from app.utils.constants import SKIP_TAGS
 
 
 class TestRealServer(FlackTestCase):
-    @skipIf('real' in SKIP_TAGS, 'Skipping tests that hit the real API server.')
+    @skipIf("real" in SKIP_TAGS, "Skipping tests that hit the real API server.")
     def test_request_response(self):
         response = get_users()
 
         self.assertDictContainsSubset(
-            {'Content-Type': 'application/json; charset=utf-8'}, response.headers)
+            {"Content-Type": "application/json; charset=utf-8"}, response.headers
+        )
         self.assertTrue(response.ok)
         self.assertIsInstance(response.json(), list)
 
-    @skipIf('real' in SKIP_TAGS, 'Skipping tests that hit the real API server.')
+    @skipIf("real" in SKIP_TAGS, "Skipping tests that hit the real API server.")
     def test_request_user_response(self):
         response = get_user(1)
 
@@ -27,25 +28,23 @@ class TestRealServer(FlackTestCase):
             "username": "Bret",
             "email": "Sincere@april.biz",
             "address": {
-                    "street": "Kulas Light",
-                    "suite": "Apt. 556",
-                    "city": "Gwenborough",
-                    "zipcode": "92998-3874",
-                    "geo": {
-                              "lat": "-37.3159",
-                              "lng": "81.1496"
-                    }
+                "street": "Kulas Light",
+                "suite": "Apt. 556",
+                "city": "Gwenborough",
+                "zipcode": "92998-3874",
+                "geo": {"lat": "-37.3159", "lng": "81.1496"},
             },
             "phone": "1-770-736-8031 x56442",
             "website": "hildegard.org",
             "company": {
                 "name": "Romaguera-Crona",
                 "catchPhrase": "Multi-layered client-server neural-net",
-                "bs": "harness real-time e-markets"
-            }
+                "bs": "harness real-time e-markets",
+            },
         }
 
         self.assertDictContainsSubset(
-            {'Content-Type': 'application/json; charset=utf-8'}, response.headers)
+            {"Content-Type": "application/json; charset=utf-8"}, response.headers
+        )
         self.assertTrue(response.ok)
         self.assertEqual(response.json(), user_response)
