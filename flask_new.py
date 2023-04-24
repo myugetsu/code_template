@@ -23,7 +23,7 @@ migrate = Migrate(app, db)
 
 @app.cli.command()
 @click.option(
-    "--coverage/--no-coverage", default=False, help="Run tests under code coverage."
+    "--coverage/--no-coverage", default=False, help="Run tests under code coverage. in code"
 )
 def test(coverage):
     """Run the unit tests."""
