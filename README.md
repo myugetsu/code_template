@@ -6,7 +6,14 @@ Install the dependencies and devDependencies and start the server.
 $ git clone the project
 $ python3 venv venv //create virtual environment
 $ source venv/bin/activate //start the virtual environment on windows ./venv/bin/activate.bat
-$ pip install > requirements.txt
+$ pip install -r requirements.txt
+```
+generate python secret
+```sh
+$ python //command to start python in the command shell
+$ import secrets
+$ secrets.token_urlsafe(16) //this will generate a secret key which you can copy and past in .env file
+$ exit() // to exit from shell command
 ```
 
 used to create a database migration

@@ -25,6 +25,7 @@ services:
     environment:
       - SECRET_KEY=b'i\x03\xa0E\x88j\xd3\xbc\xd7\xc8\xda\xd0\x9f\xbd\x16\x80\x96<\x89\xc5dv\xcc|'
       - FLASK_ENV=development
+      - FLASK_DEBUG=true
       - FLASK_CONFIG=default
       - DATABASE_URL=mysql+pymysql://username:password@localhost/db_name
     links:

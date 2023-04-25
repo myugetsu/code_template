@@ -29,7 +29,7 @@ def create_app(config_name):
     login.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
-
+    
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)

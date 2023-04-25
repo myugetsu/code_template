@@ -34,6 +34,7 @@ jobs:
       - run: pip install tox
       - run: export FLASK_APP=flask_new.py
       - run: export FLASK_ENV=testing
+      - run: FLASK_DEBUG=true
       - run: export SECRET_KEY=secret_key
       - run: export CODECOV_TOKEN=a7934fa8-fe4f-4ba0-89c7-fde9a512e274
       - run: tox
