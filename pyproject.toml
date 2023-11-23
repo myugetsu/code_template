@@ -85,9 +85,9 @@ urllib3 = "^1.26.18"
 virtualenv = "^20.24.7"
 werkzeug = "^2.3.8"
 wheel = "^0.38.4"
-wrapt = "^1.16.0"
-zipp = "^3.17.0"
-blinker = "^1.7.0"
+wrapt = "1.16.0"
+zipp = "3.17.0"
+blinker = "1.7.0"
 
 
 [build-system]
