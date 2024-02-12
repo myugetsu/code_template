@@ -28,11 +28,17 @@ run flask ...
 
 ```sh
 $ flask run
-```
 
-most of the api logic is done within the app file, while the tests are created on tests folder which has a helper file which can be used
-for mocking api calls
-included also has an example files which can be used to create a dockerfile, bitbucket-piplelines,
+```
+ - managing dependancies the project uses `pip-compile` for further reading https://suyojtamrakar.medium.com/managing-your-requirements-txt-with-pip-tools-in-python-8d07d9dfa464 or https://pypi.org/project/pip-tools/
+ - most of the api logic is done within the app file, while the tests are created on tests folder which has a helper file which can be used
+   for mocking api calls
+ - included also has an example files which can be used to create a dockerfile, bitbucket-piplelines,
+
+
+# Poetry
+ - this is a python dependancy manager which has been installed on this project
+ - To install poetry in your system follow instructions from https://python-poetry.org/docs/
 
 
 # Docker
