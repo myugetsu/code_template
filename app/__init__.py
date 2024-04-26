@@ -10,7 +10,7 @@ from logging.handlers import SMTPHandler
 from flask_moment import Moment
 from flask_babel import Babel
 from flask import Blueprint
-
+from prometheus_flask_exporter import PrometheusMetrics
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -21,6 +21,7 @@ babel = Babel()
 
 def create_app(config_name):
     app = Flask(__name__)
+    metrics = PrometheusMetrics(app)
     app.config.from_object(config[config_name])
     config[config_name].init_app(app)
 
@@ -29,7 +30,7 @@ def create_app(config_name):
     login.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
-    
+
     from app.main import bp as main_bp
 
     app.register_blueprint(main_bp)
