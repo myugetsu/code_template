@@ -1,5 +1,5 @@
 # Use the official Python image with Alpine 3.18 as the base image
-FROM python:3 as base
+FROM python:3.10 as base
 
 # Set the working directory inside the container
 WORKDIR /app

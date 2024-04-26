@@ -217,6 +217,10 @@ pyproject-hooks==1.0.0
     #   build
 pytest==7.4.3
     # via -r requirements.in
+prometheus_client==0.20.0
+    # via -r requirements.in
+prometheus-flask-exporter==0.23.0
+    # via -r requirements.in
 python-dateutil==2.8.2
     # via -r requirements.in
 python-dotenv==0.21.1
